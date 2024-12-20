@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h1>Dados do Backend:</h1>
-    <p>{{ message }}</p>
+    <h1>Dados do Backend: {{message}}</h1>
   </div>
 </template>
 
 <script>
-import axios from "axios"
 import { ref, onMounted } from 'vue';
+import app from "/src/shared/services/api.ts";
 
 export default {
   setup() {
@@ -15,8 +14,9 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/data');
-        message.value = response.data.message;
+        const response = await app.get('/teste');
+        console.log(response)
+        message.value = response.data;
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
